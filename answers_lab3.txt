@@ -1,0 +1,36 @@
+How can you get all four blades to rotate with just one time-dependent rotation matrix?
+- You could use two different rotation matrices for each blade and combine them. One for the time rotation and one for the specific blade offset rotation.
+
+How do you make the wings follow the body's movements?
+- You have a position for the body that is used to translate all wings so they follow
+
+You may have to tweak some numbers to make the placement right. How can you do that without making a lot of small changes in numbers in the code followed by recompilations?
+- You could change the positon based on user input, or use some kind of scripting language
+
+What kind of control did you implement?
+- I made a camera that can move freely in the air. It changes both it's position and target based on keyboard and mouse input
+
+Can you make this kind of control in some other way than manipulating a "look-at" matrix?
+- Yeah you could  modify the world matrix as well
+
+How did you handle the camera matrix for the skybox?
+- I set the translation elements to 0
+
+How did you represent the objects? Is this a good way to manage a scene or would you do it differently for a "real" application?
+- I have them as global variables, which isn't that good. It would be better to have a vector of all the objects on the scene, where each object is a combination of a model 
+and transformation data
+
+What special considerations are needed when rendering a skybox?
+- Lighting effects had to be removed 
+
+How do you generate a vector from the surface to the eye?
+- Subtract the camera position with the interpolated pixel coordinate
+
+Which vectors need renormalization in the fragment shader?
+- The normal sent from the vertex shader
+
+How did you choose to combine the texture colour and the lighting colour?
+- I multiplied the texture color with the lighting color
+
+How did you choose to combine the two textures?
+- I made the ground animate and swap texture over time

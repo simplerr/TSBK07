@@ -1,0 +1,26 @@
+What kind of data does the heightmap image data hold? What range is the heightmap data?
+- The height of the terrain, stored in the range 0-255
+
+The terrain is 4x4. How many polygons does it draw?
+- 18 triangles are used
+
+Did you need to extend your camera movement code? How?
+- I didn't have to change anything in my camera movement code, it already had enough controls
+
+How did you implement the cross product? Function call, inline...? Normalization?
+- I called the CrossProduct from VectorUtils and normalized it afterwards
+
+Which method did you use to find the normal vector?
+- I took 3 neighbouring vertices, constructed two vectors representing the plane of the face, then the cross product yields the orthogonal vector i.e the normal
+
+How did you figure out what surface to use?
+- By performing subtraction between the real (float) position and the rounded (int) position, and checking if the sum dx and dz is < 1 or not
+
+How did you calculate the height from the surface?
+- By interpolating the height over the selected triangle surface
+
+What kind of multitexturing function did you implement?
+- I made the texture depend on the height of the interpolated vertex, blending them togheter making a smooth transition
+
+How did you move the camera? What distance did you use over the terrain?
+- I set the camera height to be +5 units above the terrain

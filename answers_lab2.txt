@@ -1,0 +1,26 @@
+How are the textures coordinates mapped on the bunny? Can you see what geometry was used?
+- Texture coordinates ranges from [0][0] to [1][1] and every vertex on the bunny has a specific texture coordinate, specified in the .obj file
+
+What kind of procedural texture did you make?
+- TODO!!
+
+Can we modify how we access the texture? How?
+- We can use a different sampler (sampler1D, sampler2D, sampler3D etc.)
+
+Why can't we just pass the texture object to the shader? There is a specific reason for this, a limited resource. What?
+- There is a hardware limit on available texture units
+
+How did you move the bunny to get it in view?
+- I moved it to (0, 0, -3)
+
+Given a certain vector for v, is there some place you can't place the camera?
+- You can't place the camera so the bunny is outside the "near" and "far" planes of the projection matrix. If that is the case the bunny will not be visible.
+
+Did you implement your light calculations in the vertex or fragment shader? So, which kind of shading did you implement?
+- I implemented it in the fragment shader to get better quality, which means it's Phong shader (but without ambient and specular elements)
+
+Some geometry data must be vec4, others are just as well vec3's. Which ones, and why? How about vertices, light source, normal vectors...?
+- Vertices, light sources and normals must all be vec3. This is because the the forth element would  make the result from dot products wrong
+
+If you rotate an object or rotate the camera, what matrices are affected?
+- The world matrix when rotating objects and the view matrix when rotating the camera

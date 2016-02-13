@@ -1,0 +1,51 @@
+Answers:
+
+Where is the origin placed in the on-screen coordinate system?
+- The origin is placed at [0, 0]
+
+Which direction are the X and Y axes pointing in the on-screen coordinate system?
+- X axis: [1, 0] Y axis: [0, 1]
+
+The triangle color is controlled from the fragment shader. Would it be possible to control it from the main program? How?
+- Yes, you can use a uniform float4 variable. It's value will be the save for all vertices.
+
+What is the purpose of the "in", "out" and "uniform" modifiers?
+- uniform - global modifier
+	in/out - the input and output variables for the shader
+
+What is the output of the vertex shader?
+- The position of the vertex being processed (input to fragment shader)
+
+What does the function glUniformMatrix4fv do?
+- Sets the value of a uniform in a shader program with the type "4x4 float matrix"
+
+What is the frame rate of the animation?
+- 50 FPS
+
+Did you need to do anything different when uploading the color data?
+- No the process was the same
+
+The "in" and "out" modifiers are now used for something different. What?
+- They are used to pass variables between the vertex shader and the fragment shader. An "out" variable from the vertex shader is a "in" variable in the fragment shader
+
+What is this kind of shading called? What could we use otherwise?
+- It's a simple shader that uses interpolation between the vertices to get each pixels unique color. A pixel shader
+
+What problems did you encounter while building the cube?
+- Keeping track of all the vertices was hard
+
+How do you change the facing of a polygon?
+- It depends on if you construct the polygon in a clockwise or counterclockwise manner. You can change the default (counterclockwise) with glFrontFace()
+
+Why do we need normal vectors for a model?
+- The normal vectors tells which direction a face is pointing, it is often used to perform lighting calculations
+
+What did you do in your fragment shader?
+- Nothing, the color passed to the fragment shader is the normal of the triangle and is used as the color 
+
+Should a normal vector always be perpendicular to a certain triangle? If not, why?
+- Yes
+
+Now we are using glBindBuffer and glBufferData again. They deal with buffers, but in what way?
+- glBindBuffer() binds a buffer to perform operations on. glBufferData() creates and stores data for the currently bound 
+	buffer (specified with the latest glBindBuffer())
