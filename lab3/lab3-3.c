@@ -141,7 +141,7 @@ void init(void)
 	GLuint colorBufferObjID;
 
 	glutPassiveMotionFunc(&mouseMove);
-	initKeymapManager();
+//	initKeymapManager();
 	glutWarpPointer(1024 / 2, 768 / 2);
 
 	// Load windmill
@@ -159,7 +159,6 @@ void init(void)
 	dumpInfo();
 
 	// GL inits
-	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glClearColor(1,0.2,0.5,0);
 	//glFrontFace(GL_CW);
 	glEnable(GL_DEPTH_TEST);
@@ -222,9 +221,10 @@ void display(void)
 	// Castle
 	scale = S(0.1, 0.1, 0.1);
 	mat4 trans = T(0, 0, 50);
+	mat4 result = Mult(trans, scale);
 	
 	glBindTexture(GL_TEXTURE_2D, conc_texture);
-	glUniformMatrix4fv(glGetUniformLocation(program, "mdlMatrix"), 1, GL_TRUE, Mult(trans, scale).m);
+	glUniformMatrix4fv(glGetUniformLocation(program, "mdlMatrix"), 1, GL_TRUE, result.m);
 	DrawModel(castle, program, "in_Position", "in_Normal", "inTexCoord");
 
 	// Windmill
@@ -238,7 +238,7 @@ void display(void)
 void OnTimer(int value)
 {
 	// Move the camera using user input
-	if (keyIsDown('a'))
+	if (glutKeyIsDown('a'))
 	{
 		vec3 dir = VectorSub(targetPos, cameraPos);
 		vec3 right_vec = CrossProduct(dir, upVector);
@@ -247,7 +247,7 @@ void OnTimer(int value)
 		cameraPos = VectorSub(cameraPos, right_vec);
 		targetPos = VectorSub(targetPos, right_vec);
 	}
-	else if (keyIsDown('d'))
+	else if (glutKeyIsDown('d'))
 	{
 		vec3 dir = VectorSub(targetPos, cameraPos);
 		vec3 right_vec = CrossProduct(dir, upVector);
@@ -257,14 +257,14 @@ void OnTimer(int value)
 		targetPos = VectorAdd(targetPos, right_vec);
 	}
 
-	if (keyIsDown('w'))
+	if (glutKeyIsDown('w'))
 	{
 		vec3 dir = VectorSub(targetPos, cameraPos);
 		dir = Normalize(dir);
 		cameraPos = VectorAdd(cameraPos, dir);
 		targetPos = VectorAdd(targetPos, dir);
 	}
-	if (keyIsDown('s'))
+	if (glutKeyIsDown('s'))
 	{
 		vec3 dir = VectorSub(targetPos, cameraPos);
 		dir = Normalize(dir);
@@ -280,20 +280,13 @@ int main(int argc, char *argv[])
 {
 	glutInit(&argc, argv);
 	glutInitContextVersion(3, 2);
+	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowSize(1024, 768);
 	glutCreateWindow ("GL3 white triangle example");
 	glutDisplayFunc(display); 
 
 	// Timer
 	glutTimerFunc(100, &OnTimer, 0);
-
-	if (GLEW_OK != glewInit())
-	{
-		/* Problem: glewInit failed, something is seriously wrong. */
-		printf("glewInit failed, aborting.\n");
-		exit(1);
-	}
-	printf("Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
 
 	init ();
 	glutMainLoop();

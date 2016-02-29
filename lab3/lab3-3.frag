@@ -6,7 +6,7 @@ in vec3 ex_Normal;
 out vec4 out_Color;
 
 uniform sampler2D texUnit;
-uniform int skybox_active;
+uniform bool skybox_active;
 
 void main(void)
 {	

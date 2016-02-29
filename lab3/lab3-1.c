@@ -116,7 +116,6 @@ void init(void)
 	dumpInfo();
 
 	// GL inits
-	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glClearColor(1,0.2,0.5,0);
 	//glFrontFace(GL_CW);
 	glEnable(GL_DEPTH_TEST);
@@ -174,19 +173,12 @@ int main(int argc, char *argv[])
 {
 	glutInit(&argc, argv);
 	glutInitContextVersion(3, 2);
+	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutCreateWindow ("GL3 white triangle example");
 	glutDisplayFunc(display); 
 
 	// Timer
 	glutTimerFunc(20, &OnTimer, 0);
-
-	if (GLEW_OK != glewInit())
-	{
-		/* Problem: glewInit failed, something is seriously wrong. */
-		printf("glewInit failed, aborting.\n");
-		exit(1);
-	}
-	printf("Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
 
 	init ();
 	glutMainLoop();
