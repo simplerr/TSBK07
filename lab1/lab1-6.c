@@ -126,7 +126,7 @@ void init(void)
 	glClearColor(1,0.2,0.5,0);
 	//glFrontFace(GL_CW);
 	glEnable(GL_DEPTH_TEST);
-	//glEnable(GL_CULL_FACE);
+        //glEnable(GL_CULL_FACE);
 	
 	printError("GL inits");
 
@@ -206,14 +206,6 @@ int main(int argc, char *argv[])
 
 	// Timer
 	glutTimerFunc(20, &OnTimer, 0);
-
-	if (GLEW_OK != glewInit())
-	{
-		/* Problem: glewInit failed, something is seriously wrong. */
-		printf("glewInit failed, aborting.\n");
-		exit(1);
-	}
-	printf("Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
 
 	init ();
 	glutMainLoop();

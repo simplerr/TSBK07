@@ -7,15 +7,17 @@ extern "C" {
 
 #ifdef __APPLE__
 	#include <OpenGL/gl3.h>
-	#include "MicroGlut.h"
 #else
-#include <Windows.h>
-#include <GL/glew.h>
-#include <GL/glut.h>	
-	
+	#if defined(_WIN32)
+		#include "glew.h"
+		#include <GL/gl.h>
+	#else
+		#include <GL/gl.h>
+	#endif
 #endif
+#include "MicroGlut.h"
 
-
+ 
 void printError(const char *functionName);
 GLuint loadShaders(const char *vertFileName, const char *fragFileName);
 GLuint loadShadersG(const char *vertFileName, const char *fragFileName, const char *geomFileName);
@@ -23,8 +25,9 @@ GLuint loadShadersGT(const char *vertFileName, const char *fragFileName, const c
 						const char *tcFileName, const char *teFileName);
 void dumpInfo(void);
 
-void initKeymapManager();
-char keyIsDown(unsigned char c);
+// This is obsolete! Use the functions in MicroGlut instead!
+//void initKeymapManager();
+//char keyIsDown(unsigned char c);
 
 // FBO support
 

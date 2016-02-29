@@ -4,15 +4,14 @@
 // Remember to copy your file to a new on appropriate places during the lab so you keep old results.
 // Note that the files "lab1-1.frag", "lab1-1.vert" are required.
 
-// Should work as is on Linux and Mac. MS Windows needs GLEW or glee.
-// See separate Visual Studio version of my demos.
 #ifdef __APPLE__
 	#include <OpenGL/gl3.h>
-	#include "MicroGlut.h"
 	// Linking hint for Lightweight IDE
 	// uses framework Cocoa
 #endif
+#include "MicroGlut.h"
 #include "GL_utilities.h"
+//#include "GL/glut.h"
 
 // Globals
 // Data would normally be read from files
@@ -88,20 +87,11 @@ void display(void)
 
 int main(int argc, char *argv[])
 {
+
 	glutInit(&argc, argv);
 	glutInitContextVersion(3, 2);
 	glutCreateWindow ("GL3 white triangle example");
 	glutDisplayFunc(display); 
-
-
-	if (GLEW_OK != glewInit())
-	{
-		/* Problem: glewInit failed, something is seriously wrong. */
-		printf("glewInit failed, aborting.\n");
-		exit(1);
-	}
-	printf("Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
-
 	init ();
 	glutMainLoop();
 }

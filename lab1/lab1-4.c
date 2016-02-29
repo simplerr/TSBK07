@@ -126,7 +126,7 @@ void OnTimer(int value)
 		speedx = 0.02f;
 	
 	myMatrix[3] += speedx;
-	myMatrix[7] = sinf(t*1000.0f) * 100;
+	//myMatrix[7] = sinf(t*1000.0f) * 100;
 	
 	glutPostRedisplay();
 	glutTimerFunc(20, &OnTimer, value);
@@ -141,14 +141,6 @@ int main(int argc, char *argv[])
 
 	// Timer
 	glutTimerFunc(20, &OnTimer, 0);
-
-	if (GLEW_OK != glewInit())
-	{
-		/* Problem: glewInit failed, something is seriously wrong. */
-		printf("glewInit failed, aborting.\n");
-		exit(1);
-	}
-	printf("Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
 
 	init ();
 	glutMainLoop();

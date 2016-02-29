@@ -10,6 +10,7 @@
 // Fixed FUBAR in InitFBO().
 // 130228: Changed most printf's to stderr.
 // 131014: Added tesselation shader support
+// 150812: Added a NULL check on file names in readFile, makes Visual Studio happier.
 
 //#define GL3_PROTOTYPES
 #include <stdlib.h>
@@ -28,7 +29,7 @@ char* readFile(char *file)
 	char *buf;
 
 	if (file == NULL)
-		return NULL;
+			return NULL;
 
 	fptr = fopen(file, "rb"); /* Open file for reading */
 	if (!fptr) /* Return NULL on failure */
@@ -216,6 +217,8 @@ void printError(const char *functionName)
 }
 
 
+/*
+
 // Keymap mini manager
 // Important! Uses glutKeyboardFunc/glutKeyboardUpFunc so you can't use them
 // elsewhere or they will conflict.
@@ -246,7 +249,7 @@ void initKeymapManager()
 	glutKeyboardFunc(keyDown);
 	glutKeyboardUpFunc(keyUp);
 }
-
+*/
 
 // FBO
 
