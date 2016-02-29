@@ -152,7 +152,7 @@ void init(void)
 	castle = LoadModelPlus("models/castle/walls.obj");
 	skybox = LoadModelPlus("skybox.obj");
 
-	LoadTGATextureSimple("skybox512.tga", &skybox_texture);
+	LoadTGATextureSimple("SkyBox512.tga", &skybox_texture);
 	LoadTGATextureSimple("grass.tga", &grass_texture);
 	LoadTGATextureSimple("conc.tga", &conc_texture);
 
