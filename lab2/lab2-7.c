@@ -54,7 +54,6 @@ void init(void)
 	dumpInfo();
 
 	// GL inits
-	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glClearColor(1,0.2,0.5,0);
 	//glFrontFace(GL_CW);
 	glEnable(GL_DEPTH_TEST);
@@ -137,6 +136,7 @@ int main(int argc, char *argv[])
 {
 	glutInit(&argc, argv);
 	glutInitContextVersion(3, 2);
+	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutCreateWindow ("GL3 white triangle example");
 	glutDisplayFunc(display); 
 

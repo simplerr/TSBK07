@@ -117,23 +117,21 @@ void init(void)
 	unsigned int bunnyNormalBufferObjID;
 	GLuint colorBufferObjID;
 
-	model = LoadModel("bunny.obj");
 
 	dumpInfo();
 
+	model = LoadModelPlus("bunny.obj");
+
 	// GL inits
-	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-	glClearColor(1,0.2,0.5,0);
-	//glFrontFace(GL_CW);
+	glClearColor(0.5, 0.5, 0.5, 0);
 	glEnable(GL_DEPTH_TEST);
-        //glEnable(GL_CULL_FACE);
-	
 	printError("GL inits");
 
 	// Load and compile shader
 	program = loadShaders("lab1-6.vert", "lab1-6.frag");
 	printError("init shader");
 	
+
 	// **Own code**
 	glUniform4fv(glGetUniformLocation(program, "color_"), 1, color);
 	
@@ -200,13 +198,15 @@ void OnTimer(int value)
 int main(int argc, char *argv[])
 {
 	glutInit(&argc, argv);
+
+	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitContextVersion(3, 2);
 	glutCreateWindow ("GL3 white triangle example");
 	glutDisplayFunc(display); 
 
+	init ();
 	// Timer
 	glutTimerFunc(20, &OnTimer, 0);
 
-	init ();
 	glutMainLoop();
 }
