@@ -92,7 +92,7 @@ void init(void)
 	glDisable(GL_CULL_FACE);
 	printError("GL inits");
 
-	initKeymapManager();
+	//initKeymapManager();
 
 	projectionMatrix = frustum(-0.1, 0.1, -0.1, 0.1, 0.2, 500.0);
 
@@ -101,7 +101,7 @@ void init(void)
 	glUseProgram(program);
 	printError("init shader");
 	
-	glUniformMatrix4fv(glGetUniformLocation(program, "projMatrix"), 1, GL_TRUE, projectionMatrix.m);
+	glUniformMatrix4fv(glGetUniformLocation(program, "gProjection"), 1, GL_TRUE, projectionMatrix.m);
 	glUniform1i(glGetUniformLocation(program, "tex"), 0); // Texture unit 0
 	LoadTGATextureSimple("grass.tga", &tex1);
 	
@@ -130,10 +130,11 @@ void display(void)
 
 	modelView = IdentityMatrix();
 	total = Mult(cameraMatrix, modelView);
-	glUniformMatrix4fv(glGetUniformLocation(program, "mdlMatrix"), 1, GL_TRUE, total.m);
+	glUniformMatrix4fv(glGetUniformLocation(program, "gWorld"), 1, GL_TRUE, modelView.m);
+	glUniformMatrix4fv(glGetUniformLocation(program, "gView"), 1, GL_TRUE, cameraMatrix.m);
 	
 	glBindTexture(GL_TEXTURE_2D, tex1);		// Bind Our Texture tex1
-	DrawModel(tm, program, "inPosition", "inNormal", "inTexCoord");
+	DrawModel(tm, program, "InPosL", "InNormalL", "InTex");
 
 	printError("display 2");
 	
@@ -143,7 +144,7 @@ void display(void)
 void timer(int i)
 {
 	// Move the camera using user input
-	if (keyIsDown('a'))
+	if (glutKeyIsDown('a'))
 	{
 		vec3 dir = VectorSub(targetPos, cameraPos);
 		vec3 right_vec = CrossProduct(dir, upVector);
@@ -152,7 +153,7 @@ void timer(int i)
 		cameraPos = VectorSub(cameraPos, right_vec);
 		targetPos = VectorSub(targetPos, right_vec);
 	}
-	else if (keyIsDown('d'))
+	else if (glutKeyIsDown('d'))
 	{
 		vec3 dir = VectorSub(targetPos, cameraPos);
 		vec3 right_vec = CrossProduct(dir, upVector);
@@ -162,14 +163,14 @@ void timer(int i)
 		targetPos = VectorAdd(targetPos, right_vec);
 	}
 
-	if (keyIsDown('w'))
+	if (glutKeyIsDown('w'))
 	{
 		vec3 dir = VectorSub(targetPos, cameraPos);
 		dir = Normalize(dir);
 		cameraPos = VectorAdd(cameraPos, dir);
 		targetPos = VectorAdd(targetPos, dir);
 	}
-	if (keyIsDown('s'))
+	if (glutKeyIsDown('s'))
 	{
 		vec3 dir = VectorSub(targetPos, cameraPos);
 		dir = Normalize(dir);
@@ -213,13 +214,6 @@ int main(int argc, char **argv)
 	glutCreateWindow ("TSBK07 Lab 4");
 	glutDisplayFunc(display);
 
-	if (GLEW_OK != glewInit())
-	{
-		/* Problem: glewInit failed, something is seriously wrong. */
-		printf("glewInit failed, aborting.\n");
-		exit(1);
-	}
-	printf("Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
 
 	init ();
 	glutTimerFunc(20, &timer, 0);

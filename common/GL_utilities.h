@@ -16,6 +16,9 @@ extern "C" {
 	#endif
 #endif
 #include "MicroGlut.h"
+#include "VectorUtils3.h"
+#include "loadobj.h"
+#include "LoadTGA.h"
 
  
 void printError(const char *functionName);
